@@ -62,7 +62,6 @@ ALTER TABLE public.appointments OWNER TO freecodecamp;
 --
 
 CREATE SEQUENCE public.appointments_appointment_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -97,7 +96,6 @@ ALTER TABLE public.customers OWNER TO freecodecamp;
 --
 
 CREATE SEQUENCE public.customers_customer_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -115,23 +113,10 @@ ALTER SEQUENCE public.customers_customer_id_seq OWNED BY public.customers.custom
 
 
 --
--- Name: services; Type: TABLE; Schema: public; Owner: freecodecamp
---
-
-CREATE TABLE public.services (
-    service_id integer NOT NULL,
-    name character varying(30)
-);
-
-
-ALTER TABLE public.services OWNER TO freecodecamp;
-
---
 -- Name: services_service_id_seq; Type: SEQUENCE; Schema: public; Owner: freecodecamp
 --
 
 CREATE SEQUENCE public.services_service_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -142,11 +127,16 @@ CREATE SEQUENCE public.services_service_id_seq
 ALTER TABLE public.services_service_id_seq OWNER TO freecodecamp;
 
 --
--- Name: services_service_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: freecodecamp
+-- Name: services; Type: TABLE; Schema: public; Owner: freecodecamp
 --
 
-ALTER SEQUENCE public.services_service_id_seq OWNED BY public.services.service_id;
+CREATE TABLE public.services (
+    service_id integer DEFAULT nextval('public.services_service_id_seq'::regclass) NOT NULL,
+    name character varying(30)
+);
 
+
+ALTER TABLE public.services OWNER TO freecodecamp;
 
 --
 -- Name: appointments appointment_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
@@ -163,49 +153,50 @@ ALTER TABLE ONLY public.customers ALTER COLUMN customer_id SET DEFAULT nextval('
 
 
 --
--- Name: services service_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
---
-
-ALTER TABLE ONLY public.services ALTER COLUMN service_id SET DEFAULT nextval('public.services_service_id_seq'::regclass);
-
-
---
 -- Data for Name: appointments; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.appointments VALUES (7, 6, 1, '10:30');
+INSERT INTO public.appointments VALUES (8, 6, 2, '11am');
 
 
 --
 -- Data for Name: customers; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.customers VALUES (6, '555-555-5555', 'Fabio');
 
 
 --
 -- Data for Name: services; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.services VALUES (1, 'Cut');
+INSERT INTO public.services VALUES (2, 'color');
+INSERT INTO public.services VALUES (3, 'perm');
+INSERT INTO public.services VALUES (4, 'style');
+INSERT INTO public.services VALUES (5, 'trim');
 
 
 --
 -- Name: appointments_appointment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.appointments_appointment_id_seq', 1, false);
+SELECT pg_catalog.setval('public.appointments_appointment_id_seq', 8, true);
 
 
 --
 -- Name: customers_customer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.customers_customer_id_seq', 1, false);
+SELECT pg_catalog.setval('public.customers_customer_id_seq', 6, true);
 
 
 --
 -- Name: services_service_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.services_service_id_seq', 1, false);
+SELECT pg_catalog.setval('public.services_service_id_seq', 5, true);
 
 
 --
